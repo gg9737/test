@@ -3,39 +3,38 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Генерация креативов</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Генератор креативов</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container" id="formContainer">
-    <h1 class="title">Создай рекламное<br>изображение</h1>
-    <form id="adForm" autocomplete="off">
-      <input type="text" name="title" placeholder="Название продукта" required />
-      <textarea name="description" placeholder="Описание" required></textarea>
-      <input type="text" name="audience" placeholder="Целевая аудитория" required />
-      <input type="text" name="offer" placeholder="Оффер (например, -20%)" required />
+  <div class="container">
+    <div id="formContainer">
+      <h1>Создай рекламное изображение</h1>
+      <form id="adForm">
+        <input type="text" name="title" placeholder="Название продукта" required />
+        <textarea name="description" placeholder="Описание продукта" required></textarea>
+        <input type="text" name="audience" placeholder="Целевая аудитория" required />
+        <input type="text" name="offer" placeholder="Оффер / Акция" required />
+        <label for="imageInput" class="custom-file-upload">Выбрать изображение</label>
+        <input type="file" id="imageInput" name="image" accept="image/*" required hidden />
+        <span id="fileName"></span>
+        <button type="submit">Сгенерировать</button>
+      </form>
+    </div>
 
-      <label class="custom-file-upload">
-        <input type="file" name="image" id="imageInput" />
-        Выбрать изображение
-      </label>
-      <p id="fileName" class="filename"></p>
-
-      <button type="submit" id="submitBtn">Сгенерировать</button>
-    </form>
-  </div>
-
-  <div class="container hidden" id="thankYouContainer">
-    <h1 class="title">Генерация началась!</h1>
-    <h2 class="success">✅ Запрос отправлен!</h2>
-    <p>Бот пришлет итоговое изображение через 2–3 минуты</p>
-    <div class="buttons">
-      <button onclick="reloadPage()">🌀 Заказать еще один креатив</button>
-      <a href="https://t.me/cocktest88bot" target="_blank">📦 Перейти в бота</a>
+    <div id="thankYouContainer" class="hidden">
+      <h1>Генерация началась!</h1>
+      <p>⏳ Пожалуйста, подождите 2–3 минуты. Ваш креатив скоро будет готов.</p>
+      <img id="resultImage" src="" alt="Generated Ad" style="max-width: 100%; border-radius: 12px; margin-top: 20px; display: none;" />
+      <div class="button-group">
+        <button onclick="reloadPage()">🔁 Заказать ещё один креатив</button>
+        <a href="https://t.me/your_bot_username" target="_blank">
+          <button>📥 Перейти в бота</button>
+        </a>
+      </div>
     </div>
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>
