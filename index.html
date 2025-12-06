@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Генератор рекламы</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    input, textarea {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h2>Создай рекламное изображение</h2>
+  <form id="adForm">
+    <input name="title" placeholder="Название продукта" required><br>
+    <textarea name="description" placeholder="Описание" required></textarea><br>
+    <input name="audience" placeholder="Целевая аудитория" required><br>
+    <input name="offer" placeholder="Оффер (например, -20%)" required><br>
+    <input type="file" name="image" accept="image/*" required><br>
+    <button type="submit">Сгенерировать</button>
+  </form>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand(); // делает WebApp на весь экран
+
+    document.getElementById('adForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const form = e.target;
+      const formData = new FormData(form);
+
+      // Добавляем chat_id из Telegram
+      formData.append('chat_id', tg.initDataUnsafe.user.id);
+
+      try {
+        const res = await fetch('https://broakk72.app.n8n.cloud/webhook/f83011a2-d083-47dc-83dd-4119707f015e', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (res.ok) {
+          alert('Данные успешно отправлены! 🟢');
+        } else {
+          alert('Ошибка при отправке данных в n8n ❌');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Произошла ошибка при отправке запроса');
+      }
+
+      tg.close(); // Закрываем WebApp
+    });
+  </script>
+</body>
+</html>
