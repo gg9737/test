@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Реклама</title>
+  <title>Создай рекламное изображение</title>
   <link href="style.css" rel="stylesheet" />
 </head>
 <body>
@@ -14,12 +15,41 @@
       <textarea placeholder="Описание" name="description" required></textarea>
       <input type="text" placeholder="Целевая аудитория" name="audience" required />
       <input type="text" placeholder="Оффер (например, -20%)" name="offer" required />
-      <div class="file-wrapper">
-        <label for="fileInput">Выбрать изображение</label>
-        <input type="file" id="fileInput" name="file" accept="image/*" required />
-      </div>
+
+      <label class="custom-file-upload">
+        <input type="file" name="image" id="imageInput" required />
+        <span id="fileLabel">Выбрать изображение</span>
+      </label>
+      <div id="fileNamePreview"></div>
+
       <button type="submit">Сгенерировать</button>
     </form>
+
+    <div id="thankYou" class="hidden">
+      <h2>✅ Запрос отправлен!</h2>
+      <p>Ожидайте изображение в Telegram или проверьте бот.</p>
+    </div>
   </div>
+
+  <script>
+    const form = document.getElementById('adForm');
+    const thankYou = document.getElementById('thankYou');
+    const fileInput = document.getElementById('imageInput');
+    const fileNamePreview = document.getElementById('fileNamePreview');
+    const fileLabel = document.getElementById('fileLabel');
+
+    fileInput.addEventListener('change', () => {
+      const fileName = fileInput.files[0]?.name || '';
+      fileNamePreview.textContent = fileName ? `📎 Прикреплено: ${fileName}` : '';
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Здесь ты можешь отправить форму в n8n через fetch()
+      form.classList.add('hidden');
+      thankYou.classList.remove('hidden');
+    });
+  </script>
 </body>
 </html>
