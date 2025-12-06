@@ -1,156 +1,25 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Создай рекламу | Syncra</title>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <style>
-    :root {
-      --bg-dark: #0e0e0e;
-      --glass: rgba(255, 255, 255, 0.05);
-      --border: rgba(255, 255, 255, 0.1);
-      --text: #ffffff;
-      --accent: linear-gradient(135deg, #ff9900, #ff3300);
-      --accent-glow: 0 0 10px #ff6600, 0 0 20px #ff3300;
-    }
-
-    body {
-      margin: 0;
-      padding: 20px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text);
-      backdrop-filter: blur(10px);
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      background: var(--accent);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-size: 24px;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      max-width: 400px;
-      margin: 0 auto;
-      padding: 20px;
-      background: var(--glass);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      box-shadow: 0 4px 30px rgba(0,0,0,0.2);
-    }
-
-    input, textarea {
-      padding: 12px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: white;
-      border-radius: 8px;
-      font-size: 16px;
-      outline: none;
-      transition: 0.3s;
-    }
-
-    input:focus, textarea:focus {
-      border-color: #ff6600;
-      box-shadow: var(--accent-glow);
-    }
-
-    .file-upload-wrapper {
-      position: relative;
-      width: 100%;
-    }
-
-    .file-upload-wrapper input[type="file"] {
-      opacity: 0;
-      width: 100%;
-      height: 40px;
-      position: absolute;
-      left: 0;
-      top: 0;
-      cursor: pointer;
-    }
-
-    .file-upload-label {
-      display: block;
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #fff;
-      font-size: 14px;
-      text-align: center;
-      transition: 0.3s;
-    }
-
-    .file-upload-wrapper:hover .file-upload-label {
-      border-color: #ff6600;
-      box-shadow: var(--accent-glow);
-    }
-
-    button {
-      padding: 14px;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      font-weight: bold;
-      color: #fff;
-      background: var(--accent);
-      box-shadow: var(--accent-glow);
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    button:hover {
-      transform: scale(1.03);
-    }
-
-    label {
-      font-size: 14px;
-      opacity: 0.8;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Реклама</title>
+  <link href="style.css" rel="stylesheet" />
 </head>
 <body>
-  <h2>Создай рекламное изображение</h2>
-  <form id="adForm">
-    <input name="title" placeholder="Название продукта" required>
-    <textarea name="description" placeholder="Описание" required></textarea>
-    <input name="audience" placeholder="Целевая аудитория" required>
-    <input name="offer" placeholder="Оффер (например, -20%)" required>
-
-    <div class="file-upload-wrapper">
-      <label class="file-upload-label">📁 Выбрать изображение</label>
-      <input type="file" name="image" accept="image/*" required>
-    </div>
-
-    <button type="submit">Сгенерировать</button>
-  </form>
-
-  <script>
-    const tg = window.Telegram.WebApp;
-    tg.expand();
-
-    document.getElementById('adForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const form = e.target;
-      const formData = new FormData(form);
-      formData.append('chat_id', tg.initDataUnsafe?.user?.id || '');
-
-      await fetch('https://broakk72.app.n8n.cloud/webhook/f83011a2-d083-47dc-83dd-4119707f015e', {
-        method: 'POST',
-        body: formData
-      });
-
-      tg.close();
-    });
-  </script>
+  <div class="container">
+    <h1>Создай рекламное изображение</h1>
+    <form id="adForm">
+      <input type="text" placeholder="Название продукта" name="product" required />
+      <textarea placeholder="Описание" name="description" required></textarea>
+      <input type="text" placeholder="Целевая аудитория" name="audience" required />
+      <input type="text" placeholder="Оффер (например, -20%)" name="offer" required />
+      <div class="file-wrapper">
+        <label for="fileInput">Выбрать изображение</label>
+        <input type="file" id="fileInput" name="file" accept="image/*" required />
+      </div>
+      <button type="submit">Сгенерировать</button>
+    </form>
+  </div>
 </body>
 </html>
