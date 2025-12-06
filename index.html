@@ -3,53 +3,37 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Создай рекламное изображение</title>
-  <link href="style.css" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Создание креатива</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="container">
+  <div class="container" id="form-container">
     <h1>Создай рекламное изображение</h1>
     <form id="adForm">
-      <input type="text" placeholder="Название продукта" name="product" required />
-      <textarea placeholder="Описание" name="description" required></textarea>
-      <input type="text" placeholder="Целевая аудитория" name="audience" required />
-      <input type="text" placeholder="Оффер (например, -20%)" name="offer" required />
-
-      <label class="custom-file-upload">
-        <input type="file" name="image" id="imageInput" required />
-        <span id="fileLabel">Выбрать изображение</span>
-      </label>
-      <div id="fileNamePreview"></div>
-
-      <button type="submit">Сгенерировать</button>
+      <input type="text" id="product" name="product" placeholder="Название продукта" autocomplete="off" required />
+      <textarea id="description" name="description" placeholder="Описание" autocomplete="off" required></textarea>
+      <input type="text" id="audience" name="audience" placeholder="Целевая аудитория" autocomplete="off" required />
+      <input type="text" id="offer" name="offer" placeholder="Оффер (например, -20%)" autocomplete="off" required />
+      <label for="file-upload" class="custom-file-upload">Выбрать изображение</label>
+      <input id="file-upload" type="file" name="image" accept="image/*"/>
+      <div id="file-name-display"></div>
+      <button type="submit" id="generate-btn">Сгенерировать</button>
     </form>
+  </div>
 
-    <div id="thankYou" class="hidden">
-      <h2>✅ Запрос отправлен!</h2>
-      <p>Ожидайте изображение в Telegram или проверьте бот.</p>
+  <div class="container hidden" id="thank-you-container">
+    <h1>Генерация началась!</h1>
+    <p class="success"><span>✅</span> Запрос отправлен!</p>
+    <p>Ожидайте 2–3 минуты. Изображение поступит в Telegram или проверьте бота.</p>
+    <div class="button-group">
+      <button onclick="location.reload()">Заказать еще один креатив</button>
+      <a href="https://t.me/cocktest88bot" target="_blank">
+        <button>Перейти в бота</button>
+      </a>
     </div>
   </div>
 
-  <script>
-    const form = document.getElementById('adForm');
-    const thankYou = document.getElementById('thankYou');
-    const fileInput = document.getElementById('imageInput');
-    const fileNamePreview = document.getElementById('fileNamePreview');
-    const fileLabel = document.getElementById('fileLabel');
-
-    fileInput.addEventListener('change', () => {
-      const fileName = fileInput.files[0]?.name || '';
-      fileNamePreview.textContent = fileName ? `📎 Прикреплено: ${fileName}` : '';
-    });
-
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      // Здесь ты можешь отправить форму в n8n через fetch()
-      form.classList.add('hidden');
-      thankYou.classList.remove('hidden');
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
