@@ -1,66 +1,117 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-  <title>Генератор рекламы</title>
+  <meta charset="UTF-8">
+  <title>Создай рекламу | Syncra</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
+    :root {
+      --bg-dark: #0e0e0e;
+      --glass: rgba(255, 255, 255, 0.05);
+      --border: rgba(255, 255, 255, 0.1);
+      --text: #ffffff;
+      --accent: linear-gradient(135deg, #ff9900, #ff3300);
+      --accent-glow: 0 0 10px #ff6600, 0 0 20px #ff3300;
+    }
+
     body {
-      font-family: sans-serif;
+      margin: 0;
       padding: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text);
+      backdrop-filter: blur(10px);
     }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      background: var(--accent);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 24px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.2);
+    }
+
     input, textarea {
-      width: 100%;
-      margin-bottom: 10px;
-      padding: 8px;
-    }
-    button {
-      padding: 10px 15px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: white;
+      border-radius: 8px;
       font-size: 16px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #ff6600;
+      box-shadow: var(--accent-glow);
+    }
+
+    button {
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      background: var(--accent);
+      box-shadow: var(--accent-glow);
       cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.03);
+    }
+
+    label {
+      font-size: 14px;
+      opacity: 0.8;
     }
   </style>
 </head>
 <body>
   <h2>Создай рекламное изображение</h2>
   <form id="adForm">
-    <input name="title" placeholder="Название продукта" required><br>
-    <textarea name="description" placeholder="Описание" required></textarea><br>
-    <input name="audience" placeholder="Целевая аудитория" required><br>
-    <input name="offer" placeholder="Оффер (например, -20%)" required><br>
-    <input type="file" name="image" accept="image/*" required><br>
+    <input name="title" placeholder="Название продукта" required>
+    <textarea name="description" placeholder="Описание" required></textarea>
+    <input name="audience" placeholder="Целевая аудитория" required>
+    <input name="offer" placeholder="Оффер (например, -20%)" required>
+    <input type="file" name="image" accept="image/*" required>
     <button type="submit">Сгенерировать</button>
   </form>
 
   <script>
     const tg = window.Telegram.WebApp;
-    tg.expand(); // делает WebApp на весь экран
+    tg.expand();
 
     document.getElementById('adForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-
       const form = e.target;
       const formData = new FormData(form);
+      formData.append('chat_id', tg.initDataUnsafe?.user?.id || '');
 
-      // Добавляем chat_id из Telegram
-      formData.append('chat_id', tg.initDataUnsafe.user.id);
+      await fetch('https://broakk72.app.n8n.cloud/webhook/f83011a2-d083-47dc-83dd-4119707f015e', {
+        method: 'POST',
+        body: formData
+      });
 
-      try {
-        const res = await fetch('https://broakk72.app.n8n.cloud/webhook/f83011a2-d083-47dc-83dd-4119707f015e', {
-          method: 'POST',
-          body: formData,
-        });
-
-        if (res.ok) {
-          alert('Данные успешно отправлены! 🟢');
-        } else {
-          alert('Ошибка при отправке данных в n8n ❌');
-        }
-      } catch (err) {
-        console.error(err);
-        alert('Произошла ошибка при отправке запроса');
-      }
-
-      tg.close(); // Закрываем WebApp
+      tg.close();
     });
   </script>
 </body>
