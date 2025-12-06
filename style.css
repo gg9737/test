@@ -51,22 +51,18 @@ textarea {
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-
-  padding: 12px;
-  background-color: #1e1e1e;
-  border: 1px solid #444;
-  border-radius: 8px;
-  text-align: center;
-  cursor: pointer;
+  padding: 10px;
+  background: #222;
   color: white;
-  transition: background-color 0.3s ease;
+  text-align: center;
+  border-radius: 10px;
+  border: 1px solid #333;
+  cursor: pointer;
+  margin-bottom: 8px;
+  font-size: 14px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
-
-.custom-file-upload:hover {
-  background: #2c2c2c;
 }
 
 input[type="file"] {
@@ -131,4 +127,10 @@ button[type="submit"]:hover {
 .buttons button:hover,
 .buttons a:hover {
   background: #2c2c2c;
+}
+
+/* Добавлено: фиксация цвета текста на thank you */
+#thankYouContainer,
+#thankYouContainer * {
+  color: #fff !important;
 }
