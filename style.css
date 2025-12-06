@@ -49,15 +49,20 @@ textarea {
 .custom-file-upload {
   display: block;
   width: 100%;
-  background: #222;
-  color: #fff;
+  max-width: 100%;
+  box-sizing: border-box;
+
+  padding: 12px;
+  background-color: #1e1e1e;
+  border: 1px solid #444;
+  border-radius: 8px;
   text-align: center;
-  padding: 10px;
-  border-radius: 10px;
   cursor: pointer;
-  border: 1px solid #333;
-  margin-bottom: 8px;
-  font-size: 14px;
+  color: white;
+  transition: background-color 0.3s ease;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .custom-file-upload:hover {
